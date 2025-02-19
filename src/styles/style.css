@@ -1,0 +1,139 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+/* 헤더 */
+.header {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid gray;
+}
+
+/* 앱 컨테이너 */
+.app-container {
+    display: flex;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+
+/* 로그인 컨테이너 중앙 정렬 */
+.login-container {
+    margin : 100px auto;
+    width: 400px;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* 입력 필드 스타일 */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+}
+
+.login-form label {
+    text-align: left;
+    font-weight: bold;
+}
+
+.login-form input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* 전역 버튼 스타일 */
+.default-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #9e8eee;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.default-button:hover {
+    background-color:  #ACA0EB;
+}
+
+/* 회원가입 링크 위치 조정 */
+.login-container p {
+    margin-top: 15px;
+}
+
+.login-container a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.login-container a:hover {
+    text-decoration: underline;
+}
+
+/** 회원가입 */
+.register-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.register-form label {
+    text-align: left;
+    font-weight: bold;
+}
+
+.register-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.register-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.register-button:hover {
+    background-color: #0056b3;
+}
+
+.register-container p {
+    margin-top: 10px;
+}
+
+.register-container a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.register-container a:hover {
+    text-decoration: underline;
+}
