@@ -1,4 +1,5 @@
-import { createButton } from "../components/Button.js";
+
+import { Button } from "../components/Button.js";
 import { navigateTo } from "../router.js";
 
 export default function loginPage() {
@@ -26,7 +27,7 @@ export default function loginPage() {
     passwordInput.type = "password";
     passwordInput.placeholder = "비밀번호를 입력하세요";
 
-    const submitButton = createButton({
+    const submitButton = Button({
         text: "로그인",
         onClick: (e) => {
             e.preventDefault();
