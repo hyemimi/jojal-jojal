@@ -1,3 +1,4 @@
+import boardPage from "./pages/board.js";
 import loginPage from "./pages/login.js";
 import registerPage  from "./pages/register.js";
 
@@ -5,8 +6,7 @@ import registerPage  from "./pages/register.js";
 const routes = {
     "/": loginPage,
     "/register": registerPage,
-    // "/board": renderBoard,
-    // "/post": renderPost,
+    "/board": boardPage
 };
 
 export function navigateTo(path) {

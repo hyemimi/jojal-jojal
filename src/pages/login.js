@@ -1,10 +1,9 @@
 
-import { Button } from "../components/Button.js";
+import Button from "../components/Button.js";
 import { navigateTo } from "../router.js";
 
 export default function loginPage() {
     const app = document.getElementById("app");
-    app.innerHTML = ""; // 기존 내용 초기화
 
     const container = document.createElement("div");
     container.classList.add("login-container");

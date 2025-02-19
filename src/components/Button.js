@@ -1,5 +1,5 @@
 
-export function Button({ text, onClick, className = "default-button", type = "button" }) {
+export default function Button({ text, onClick, className = "default-button", type = "button" }) {
     const button = document.createElement("button");
     button.textContent = text;
     button.classList.add(className);

@@ -1,4 +1,4 @@
-import { Button } from "../components/Button.js";
+import Button from "../components/Button.js";
 import { navigateTo } from "../router.js";
 
 export default function registerPage() {
