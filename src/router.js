@@ -2,6 +2,7 @@ import boardItemPage from "./pages/boardItem.js";
 import boardsPage from "./pages/boards.js";
 import loginPage from "./pages/login.js";
 import postPage from "./pages/post.js";
+import profilePage from "./pages/profile.js";
 import registerPage  from "./pages/register.js";
 
 
@@ -10,7 +11,8 @@ const routes = {
     "/register": registerPage,
     "/boards": boardsPage,
     "/post" : postPage,
-    "/boardItem" : boardItemPage
+    "/boardItem" : boardItemPage,
+    "/profile" : profilePage
 };
 
 export function navigateTo(path) {
