@@ -234,3 +234,42 @@ body {
     border-top: 1px solid #ddd;
     margin: 10px 0;
 }
+
+/** post */
+
+.post-container {
+    width: 570px;
+    margin : 0 auto;
+}
+
+.post-title {
+    text-align : center;
+    font-size: 24px;
+    margin-top: 24px;
+}
+
+.post-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.post-form label {
+    font-weight: bold;
+}
+
+.post-form input,
+.post-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 27px;
+}
+
+.post-form textarea {
+    height: 150px;
+    resize: none;
+}

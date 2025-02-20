@@ -16,7 +16,7 @@ export default function boardPage () {
     const uploadButton = Button({
         text : "게시글 작성",
         onClick : () => {
-            navigateTo('/')
+            navigateTo('/post')
         },
         className : "board-button"
     })
