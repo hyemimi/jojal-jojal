@@ -1,4 +1,6 @@
-export function BoardItem({ title, author, date, likes = 0, comments = 0, views = 0 }) {
+import { navigateTo } from "../router.js";
+
+export function BoardItem({id, title, author, date, likes = 0, comments = 0, views = 0 }) {
     const postItem = document.createElement("div");
     postItem.classList.add("board-item");
 
@@ -14,6 +16,12 @@ export function BoardItem({ title, author, date, likes = 0, comments = 0, views 
             <span class="board-author">${author}</span>
         </div>
     `;
+
+    // 클릭 이벤트 추가 → 게시글 상세 페이지로 이동
+    postItem.addEventListener("click", (event) => {
+        event.stopPropagation(); // 내부 요소 클릭 시 이벤트 버블링 방지
+        navigateTo("/boardItem"); // 게시글 ID를 포함하여 상세 페이지로 이동
+    });
 
     return postItem;
 }

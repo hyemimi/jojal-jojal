@@ -30,7 +30,7 @@ export default function loginPage() {
         text: "로그인",
         onClick: (e) => {
             e.preventDefault();
-            navigateTo('/board')
+            navigateTo('/boards')
         }
     })
 
