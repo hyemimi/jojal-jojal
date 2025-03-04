@@ -6,5 +6,4 @@ import { renderPage } from "./router.js";
 document.addEventListener("DOMContentLoaded", () => {
     Header();
     renderPage();
-    window.addEventListener("popstate", renderPage);
 });

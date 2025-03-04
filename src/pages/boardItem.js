@@ -1,8 +1,9 @@
 import Button from "../components/Button.js";
 import { navigateTo } from "../router.js";
 
-export default function boardItemPage () {
+export default function boardItemPage (params) {
     const app = document.getElementById("app");
+    console.log(params)
 
     app.innerHTML = `
          <div class="boardItem-container">
