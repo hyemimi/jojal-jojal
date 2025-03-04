@@ -24,17 +24,25 @@ export default function boardsPage () {
     const uploadButtonDiv = document.getElementById('board-button-div');
     uploadButtonDiv.appendChild(uploadButton);
 
-     // 더미 데이터
-     const boards = [
-        { id: 1, title: "제목 1", author: "더미 작성자 1", date: "2025-02-20 12:30", likes: 10, comments: 5, views: 100 },
-        { id: 2, title: "제목 2", author: "더미 작성자 2", date: "2025-02-19 15:45", likes: 3, comments: 2, views: 50 },
-        { id: 3, title: "제목 3", author: "더미 작성자 3", date: "2025-02-18 10:20", likes: 7, comments: 1, views: 80 }
-    ];
+    fetch("./src/data/boards.json")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("게시판 데이터를 불러오는 데 실패했습니다.");
+            }
+            return response.json();
+        })
+        .then(boards => {
+            const boardList = document.getElementById("board-list");
+            boardList.innerHTML = ""; // 로딩 메시지 제거
 
-    const boardList = document.getElementById("board-list");
-    boards.forEach(board => {
-        const boardItem = BoardItem(board);
-        boardList.appendChild(boardItem);
-    });
+            boards.forEach(board => {
+                const boardItem = BoardItem(board);
+                boardList.appendChild(boardItem);
+            });
+        })
+        .catch(error => {
+            console.error("데이터 로드 오류:", error);
+            document.getElementById("board-list").innerHTML = `<p>게시판 데이터를 불러오는 데 실패했습니다.</p>`;
+        });
 
 }
