@@ -1,8 +1,9 @@
-import { BoardItem } from "../components/boardItem.js";
-import Button  from "../components/Button.js";
-import { navigateTo } from "../router.js";
 
-export default function boardsPage () {
+import { BoardItem } from "../../components/boardItem.js";
+import Button  from "../../components/Button.js";
+import { navigateTo } from "../../router.js";
+
+export default function BoardListPage () {
     const app = document.getElementById("app");
     app.innerHTML = `
         <div class="board-container">
@@ -12,6 +13,7 @@ export default function boardsPage () {
             <div id="board-list" class="board-list"></div>
         </div>
     `;
+
 
     const uploadButton = Button({
         text : "게시글 작성",
@@ -24,7 +26,7 @@ export default function boardsPage () {
     const uploadButtonDiv = document.getElementById('board-button-div');
     uploadButtonDiv.appendChild(uploadButton);
 
-    fetch("./src/data/boards.json")
+    fetch("../../src/data/boards.json")
         .then(response => {
             if (!response.ok) {
                 throw new Error("게시판 데이터를 불러오는 데 실패했습니다.");
@@ -36,6 +38,7 @@ export default function boardsPage () {
             boardList.innerHTML = ""; // 로딩 메시지 제거
 
             boards.forEach(board => {
+            
                 const boardItem = BoardItem(board);
                 boardList.appendChild(boardItem);
             });

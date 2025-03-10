@@ -1,7 +1,7 @@
-import Button from "../components/Button.js";
-import { navigateTo } from "../router.js";
+import Button from "../../components/Button.js";
+import { navigateTo } from "../../router.js";
 
-export default function registerPage() {
+export default function RegisterPage() {
     const app = document.getElementById("app");
     app.innerHTML = `
         <div class="register-container">

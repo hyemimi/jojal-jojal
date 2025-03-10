@@ -1,18 +1,18 @@
-import boardItemPage from "./pages/boardItem.js";
-import boardsPage from "./pages/boards.js";
-import loginPage from "./pages/login.js";
-import postPage from "./pages/post.js";
-import profilePage from "./pages/profile.js";
-import registerPage  from "./pages/register.js";
 
+import BoardDetailPage from "./pages/BoardDetailPage/index.js";
+import BoardListPage from "./pages/BoardListPage/index.js";
+import LoginPage from "./pages/LoginPage/index.js";
+import PostPage from "./pages/PostPage/index.js";
+import ProfilePage from "./pages/ProfilePage/index.js";
+import RegisterPage from "./pages/RegisterPage/index.js";
 
 const routes = {
-    "/": loginPage,
-    "/register": registerPage,
-    "/boards": boardsPage,
-    "/post" : postPage,
-    "/boardItem/:id" : boardItemPage,
-    "/profile" : profilePage
+    "/": LoginPage,
+    "/register": RegisterPage,
+    "/boards": BoardListPage,
+    "/post" : PostPage,
+    "/boardDetail/:id" : BoardDetailPage,
+    "/profile" : ProfilePage
 };
 
 export function navigateTo(path) {
@@ -47,7 +47,7 @@ export function renderPage() {
     if (matchedRoute) {
         matchedRoute(params); // 📌 페이지 함수 실행 + 동적 파라미터 전달
     } else {
-        loginPage(); // 기본 페이지로 이동
+        LoginPage(); // 기본 페이지로 이동
     }
 }
 

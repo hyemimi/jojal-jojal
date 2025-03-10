@@ -1,7 +1,7 @@
-import Button from "../components/Button.js";
-import { navigateTo } from "../router.js";
+import Button from "../../components/Button.js";
+import { navigateTo } from "../../router.js";
 
-export default function postPage () {
+export default function PostPage () {
 
     const app = document.getElementById("app");
 

@@ -1,8 +1,8 @@
 
-import Button from "../components/Button.js";
-import { navigateTo } from "../router.js";
+import Button from "../../components/Button.js";
+import { navigateTo } from "../../router.js";
 
-export default function loginPage() {
+export default function LoginPage() {
     const app = document.getElementById("app");
 
     const container = document.createElement("div");

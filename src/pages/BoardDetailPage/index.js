@@ -1,7 +1,7 @@
-import Button from "../components/Button.js";
-import { navigateTo } from "../router.js";
+import Button from "../../components/Button.js";
+import { navigateTo } from "../../router.js";
 
-export default function boardItemPage (params) {
+export default function BoardDetailPage (params) {
     const app = document.getElementById("app");
     console.log(params)
 
