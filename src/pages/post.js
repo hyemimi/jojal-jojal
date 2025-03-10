@@ -26,7 +26,7 @@ export default function postPage () {
 
     const postButton = Button({
         text : "완료",
-        click: () => {navigateTo('/post')},
+        onClick: () => {navigateTo('/post')},
 
     })
 
