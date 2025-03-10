@@ -1,5 +1,6 @@
 import Button from "../../components/Button.js";
 import { navigateTo } from "../../router.js";
+import { UserItem } from "./components/UserItem.js";
 
 export default function BoardDetailPage (params) {
     const app = document.getElementById("app");
@@ -8,17 +9,7 @@ export default function BoardDetailPage (params) {
     app.innerHTML = `
          <div class="boardItem-container">
             <h2 class="boardItem-title">제목 1</h2>
-            <div class="boardItem-meta">
-            <div class= "boardItem-meta-div">
-                <div class="boardItem-profile-placeholder"></div>
-                <span class="boardItem-author">더미 작성자</span>
-                <span class="boardItem-date">2021-01-01 00:00:00</span>
-            </div>
-            <div class ="boardItem-button-div">
-                <button class="boardItem-edit-button">수정</button>
-                <button class="boardItem-edit-button">삭제</button>
-            </div>
-                </div>
+            <div id="userItem"></div>
             <hr class="boardItem-hr"/>
             <div class="boardItem-img"></div>
             <p class="post-content">이것은 더미 게시글 내용입니다.</p>
@@ -36,28 +27,27 @@ export default function BoardDetailPage (params) {
         </div>
     `;
 
+    const userItem = document.getElementById("userItem")
+    userItem.appendChild(UserItem({nickname: "미미", created_at : "2025-01-01 13:00", user_id: 1, profile_image: null}))
+
+
+
+    /** 댓글 */
     const comments = [
-        { id: 1, author: "더미 작성자 1", date: "2025-02-20 12:30", text: "첫 번째 댓글입니다." },
-        { id: 2, author: "더미 작성자 2", date: "2025-02-19 15:45", text: "두 번째 댓글입니다." },
-        { id: 3, author: "더미 작성자 3", date: "2025-02-18 10:20", text: "세 번째 댓글입니다." }
+        { user_id: 1, nickname: "더미 작성자 1", created_at: "2025-02-20 12:30", content: "첫 번째 댓글입니다." },
+        { user_id: 2, nickname: "더미 작성자 2", created_at: "2025-02-19 15:45", content: "두 번째 댓글입니다." },
+        { user_id: 3, nickname: "더미 작성자 3", created_at: "2025-02-18 10:20", content: "세 번째 댓글입니다." }
     ];
 
     const commentList = document.getElementById("comment-list");
     comments.forEach(comment => {
-        const commentItem = document.createElement("div");
-        commentItem.classList.add("comment-item");
-        commentItem.innerHTML = `
-            <div class="comment-meta">
-             <div class= "boardItem-meta-div">
-                <div class="boardItem-profile-placeholder"></div>
-                <span class="boardItem-author">${comment.author}</span>
-                <span class="boardItem-date">${comment.date}</span>
-            </div>
-             <p class="comment-text">${comment.text}</p>
-            </div>
-           
-        `;
-        commentList.appendChild(commentItem);
+        commentList.appendChild(UserItem(comment));
+        
+        // 공통 컴포넌트(유저 항목)에 댓글 내용 추가 
+        const commentContent = document.createElement("p")
+        commentContent.classList.add("comment-content")
+        commentContent.innerHTML = `<p>${comment.content}</p>`
+        commentList.appendChild(commentContent)
     });
 
 

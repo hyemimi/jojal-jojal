@@ -1,5 +1,5 @@
 
-import { BoardItem } from "../../components/boardItem.js";
+import { BoardItem } from "./components/BoardItem.js";
 import Button  from "../../components/Button.js";
 import { navigateTo } from "../../router.js";
 

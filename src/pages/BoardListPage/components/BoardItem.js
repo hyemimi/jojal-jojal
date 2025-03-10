@@ -1,4 +1,4 @@
-import { navigateTo } from "../router.js";
+import { navigateTo } from "../../../router.js";
 
 export function BoardItem({id, title, author, date, likes = 0, comments = 0, views = 0 }) {
     const boardItem = document.createElement("div");

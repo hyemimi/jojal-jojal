@@ -2,7 +2,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  
+  font-family: "Pretendard" ,sans-serif;
 }
 
 button {
@@ -309,7 +309,7 @@ body {
     margin-top: 24px;
 }
 
-.boardItem-meta {
+.userItem-meta {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -317,16 +317,16 @@ body {
     margin-top: 12px;
 }
 
-.boardItem-meta-div {
+.userItem-meta-div {
     display: flex;
     align-items: center;
 }
 
-.boardItem-author {
+.userItem-author {
     font-weight: 700;
     margin-right: 24px;
 }
-.boardItem-profile-placeholder {
+.userItem-profile-placeholder {
     background-color: #D9D9D9;
     width: 36px;
     height: 36px;
@@ -334,20 +334,20 @@ body {
     margin-right: 8px;
 }
 
-.boardItem-button-div {
+.userItem-button-div {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.boardItem-edit-button {
+.userItem-edit-button {
     border : 1px solid #ACA0EB;
     border-radius: 10px;
     padding : 5px;
     width: 50px;
 }
 
-.boardItem-hr{
+.userItem-hr{
     margin-top: 24px;
     margin-bottom: 24px;
     background-color: #00000029;
@@ -377,6 +377,10 @@ body {
     border-radius: 10px;
     width: 80px;
     text-align: center;
+}
+
+.comment-content {
+    margin-left: 44px;
 }
 
 .comment-section {
