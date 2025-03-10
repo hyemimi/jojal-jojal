@@ -11,44 +11,52 @@ const routes = {
     "/register": RegisterPage,
     "/boards": BoardListPage,
     "/post" : PostPage,
-    "/boardDetail/:id" : BoardDetailPage,
-    "/profile" : ProfilePage
+    "/profile" : ProfilePage,
+    "/boardDetail" : BoardDetailPage,
+    //"/boardDetail/:id" : BoardDetailPage,
 };
 
 export function navigateTo(path) {
     window.history.pushState({}, "", path);
     renderPage();
 }
-
+/* 
 export function renderPage() {
-    const path = window.location.pathname || "/"; // 현재 브라우저 URL 가져오기
-    document.getElementById("app").innerHTML = ""; // 기존 페이지 내용 초기화
+    const path = window.location.pathname || "/";
 
-    let matchedRoute = null; // 현재 URL과 일치하는 경로
-    let params = {}; // 동적 파라미터 저장 객체 (예: { id: "5" })
+    document.getElementById("app").innerHTML = ""; 
+
+    let matchedRoute = null;
+    let params = {};
 
     for (const route in routes) {
-        // 정규표현식을 이용해 동적 경로를 변환
-        const routeRegex = new RegExp(`^${route.replace(/:\w+/g, "(\\w+)")}$`);
+        // 정규식을 이용해 동적 경로 매칭 (숫자 ID만 허용)
+        const routeRegex = new RegExp(`^${route.replace(/:\w+/g, "(\\d+)")}$`);
         const match = path.match(routeRegex);
-
         if (match) {
-            matchedRoute = routes[route]; // 일치하는 페이지 함수 저장
-            const paramKeys = (route.match(/:(\w+)/g) || []).map(key => key.substring(1)); 
+            matchedRoute = routes[route];
+            const paramKeys = (route.match(/:(\w+)/g) || []).map(key => key.substring(1));
 
             paramKeys.forEach((key, index) => {
-                params[key] = match[index + 1]; // { id: "1" }처럼 실제 값 저장
+                params[key] = match[index + 1];
             });
-
-            break; // 첫 번째로 일치하는 경로를 찾으면 반복문 종료
+            break;
         }
     }
 
     if (matchedRoute) {
-        matchedRoute(params); // 📌 페이지 함수 실행 + 동적 파라미터 전달
+        matchedRoute(params);
     } else {
-        LoginPage(); // 기본 페이지로 이동
+        LoginPage();
     }
+} */
+
+export function renderPage() {
+    const path = window.location.pathname || "/";
+    document.getElementById("app").innerHTML = "";
+    (routes[path] || LoginPage)();
 }
+
+
 
 window.addEventListener("popstate", renderPage); // 뒤로 가기

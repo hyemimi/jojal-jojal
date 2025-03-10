@@ -1,4 +1,4 @@
-export function UserItem ({nickname, profile_image, created_at, user_id}) {
+export default function UserItem ({nickname, profile_image, created_at, user_id}) {
     const current_user = 1
     const userItemMeta = document.createElement("div")
     userItemMeta.classList.add("userItem-meta")

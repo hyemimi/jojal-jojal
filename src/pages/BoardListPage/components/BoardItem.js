@@ -20,8 +20,9 @@ export function BoardItem({id, title, author, date, likes = 0, comments = 0, vie
     // 클릭 이벤트 추가 → 게시글 상세 페이지로 이동
     boardItem.addEventListener("click", (event) => {
         event.stopPropagation(); // 내부 요소 클릭 시 이벤트 버블링 방지
-        console.log("navigateTo 호출됨, URL:", `/boardItem/${id}`);
-        navigateTo(`/boardDetail/${id}`); // 게시글 ID를 포함하여 상세 페이지로 이동
+        console.log("navigateTo 호출됨, URL:", `/boardDetail/${id}`);
+        //navigateTo(`/boardDetail/${id}`); // 게시글 ID를 포함하여 상세 페이지로 이동
+        navigateTo(`/boardDetail`);
     });
 
     return boardItem;

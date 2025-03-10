@@ -1,10 +1,9 @@
 import Button from "../../components/Button.js";
-import { navigateTo } from "../../router.js";
-import { UserItem } from "./components/UserItem.js";
-
+import UserItem from "../BoardDetailPage/components/UserItem.js";
 export default function BoardDetailPage (params) {
+    
     const app = document.getElementById("app");
-    console.log(params)
+    console.log(params);
 
     app.innerHTML = `
          <div class="boardItem-container">
@@ -28,8 +27,7 @@ export default function BoardDetailPage (params) {
     `;
 
     const userItem = document.getElementById("userItem")
-    userItem.appendChild(UserItem({nickname: "미미", created_at : "2025-01-01 13:00", user_id: 1, profile_image: null}))
-
+    userItem.appendChild(UserItem({nickname: "미", created_at : "2025-01-01 13:00", user_id: 1, profile_image: null}))
 
 
     /** 댓글 */
