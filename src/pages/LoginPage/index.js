@@ -5,53 +5,102 @@ import { navigateTo } from "../../router.js";
 export default function LoginPage() {
     const app = document.getElementById("app");
 
-    const container = document.createElement("div");
-    container.classList.add("login-container");
-
-    const title = document.createElement("h2");
-    title.textContent = "로그인";
-
-    const form = document.createElement("form");
-    form.classList.add("login-form");
-
-    const emailLabel = document.createElement("label");
-    emailLabel.textContent = "이메일";
-    const emailInput = document.createElement("input");
-    emailInput.type = "email";
-    emailInput.placeholder = "이메일을 입력하세요";
-
-    const passwordLabel = document.createElement("label");
-    passwordLabel.textContent = "비밀번호";
-    const passwordInput = document.createElement("input");
-    passwordInput.type = "password";
-    passwordInput.placeholder = "비밀번호를 입력하세요";
+    app.innerHTML = `
+    <div class="login-container" id= "login-container">
+        <h2>로그인</h2>
+        <form class="login-form" id = "login-form">
+            <label>이메일</label>
+            <input type="email" placeholder="이메일을 입력하세요" id="email"></input>
+            <span class="error-message" id="email-error"></span>
+            <label>비밀번호</label>
+            <input type="password" placeholder="비밀번호를 입력하세요" id = "password"></input>
+            <span class="error-message" id="password-error"></span>
+        </form>
+        <p>
+        아직 회원이 아니신가요? 
+        <a href="/register" id="register-link">회원가입</a> 
+        </p>
+    </div>
+    
+    `
+    const loginForm = document.getElementById("login-form")
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const emailError = document.getElementById("email-error");
+    const passwordError = document.getElementById("password-error");
+    //const loginError = document.getElementById("login-error");
 
     const submitButton = Button({
+        type: "submit",
         text: "로그인",
-        onClick: (e) => {
-            e.preventDefault();
-            navigateTo('/boards')
-        }
     })
+    loginForm.appendChild(submitButton);
+
+     // 이메일 유효성 검사 함수
+     function validateEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    // 로그인 버튼 클릭
+    loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        // 기존 에러 메시지 초기화
+        emailError.textContent = "";
+        passwordError.textContent = "";
+        //loginError.textContent = "";
+      
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+        let isValid = true;
+
+        // 이메일 유효성 검사
+        if (!email) {
+            emailError.textContent = "* 이메일을 입력해주세요.";
+            isValid = false;
+        } else if (!validateEmail(email)) {
+            emailError.textContent = "* 올바른 이메일 형식을 입력해주세요.";
+            isValid = false;
+        }
+
+        // 비밀번호 유효성 검사
+        if (!password) {
+            passwordError.textContent = "* 비밀번호를 입력해주세요.";
+            isValid = false;
+        }
+
+        if (!isValid) return;
+
+        // 로그인 요청
+        try {
+            navigateTo("/boards");
+           /*  const response = await fetch("https://your-api.com/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                navigateTo("/boards");
+            } else {
+                loginError.textContent = "이메일과 비밀번호를 확인해주세요.";
+            } */
+        } catch (error) {
+            console.error("로그인 요청 중 오류 발생:", error);
+            loginError.textContent = "서버 오류가 발생했습니다.";
+        }
+    });
 
 
-    const registerLink = document.createElement("p");
-    registerLink.innerHTML = `아직 회원이 아니신가요? <a href="/register" id="register-link">회원가입</a>`
+    const registerLink = document.getElementById("register-link")
 
     registerLink.addEventListener("click", (e) => {
         e.preventDefault(); // 기본 href 이동 방지
         navigateTo("/register");
     });
 
-    form.appendChild(emailLabel);
-    form.appendChild(emailInput);
-    form.appendChild(passwordLabel);
-    form.appendChild(passwordInput);
-    form.appendChild(submitButton);
-    
-    container.appendChild(title);
-    container.appendChild(form);
-    container.appendChild(registerLink);
-
-    app.appendChild(container);
 }

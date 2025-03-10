@@ -88,6 +88,13 @@ body {
     font-size: 16px;
 }
 
+.error-message {
+    text-align: left;
+    color: red;
+    font-size: 0.875rem; /* 작은 폰트 크기 */
+    display: block; /* 입력 필드 아래에 표시 */
+}
+    
 /* 전역 버튼 스타일 */
 .default-button {
     width: 100%;
