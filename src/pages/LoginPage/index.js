@@ -2,6 +2,7 @@
 import Button from "../../components/Button.js";
 import { navigateTo } from "../../router.js";
 import Config from "../../config.js";
+import validateEmail from "../../utils/validation/validateEmail.js";
 
 export default function LoginPage() {
     const app = document.getElementById("app");
@@ -39,10 +40,7 @@ export default function LoginPage() {
     loginForm.appendChild(submitButton);
 
      // 이메일 유효성 검사 함수
-     function validateEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
-
+    
     // 로그인 버튼 클릭
     loginForm.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -85,7 +83,7 @@ export default function LoginPage() {
             });
 
             if (response.ok) {
-                // 로그인 성공공
+                // 로그인 성공
                 navigateTo("/boards");
             } else if (response.status == 401) {
                 loginError.textContent = "이메일과 비밀번호를 확인해주세요.";
