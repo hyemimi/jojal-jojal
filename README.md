@@ -12,7 +12,7 @@
 ## 🛠 기술 스택
 
 - **Frontend**: Vanilla JavaScript, HTML5, CSS3  
-- **Backend**: Java 17, Spring Boot  
+- **Backend**: Java 17, Spring Boot  [백엔드 레포지토리](https://github.com/hyemimi/jojal-jojal-back)
 - **Database**: MySQL  
 - **이미지 업로드**: AWS S3  
 
@@ -23,7 +23,7 @@
 - 게시글 댓글 작성/삭제
 - 사용자 정보 수정 (이미지, 닉네임)
 
-## ⚙️ How to start?
+## ⚙️ 프로젝트 시작 방법
 
 1. 클론
 ```bash
