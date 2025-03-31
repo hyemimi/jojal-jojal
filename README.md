@@ -23,6 +23,10 @@
 - 게시글 댓글 작성/삭제
 - 사용자 정보 수정 (이미지, 닉네임)
 
+## 🎥 시연 영상
+
+👉 [조잘조잘 시연 영상 보러가기](https://youtu.be/nG6yIUsz5_g?feature=shared)
+
 ## ⚙️ 프로젝트 시작 방법
 
 1. 클론
@@ -41,10 +45,6 @@ npm install
 ```bash
 npm run dev
 ```
-
-## 🎥 시연 영상
-
-👉 [조잘조잘 시연 영상 보러가기](https://youtu.be/nG6yIUsz5_g?feature=shared)
 
 ## 💭 프로젝트 회고
 커뮤니티 서비스를 바닐라자바스크립트로 구현하면서, 평소 React에서의 SPA 형태로 만들기 위해 고민했습니다.
