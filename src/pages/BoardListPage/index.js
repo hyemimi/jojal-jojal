@@ -2,13 +2,15 @@
 import { BoardItem } from "./components/BoardItem.js";
 import Button  from "../../components/Button.js";
 import { navigateTo } from "../../router.js";
+import CONFIG from "../../config.js";
 
 export default function BoardListPage () {
     const app = document.getElementById("app");
     app.innerHTML = `
         <div class="board-container">
-            <p>안녕하세요,</p>
-            <p>아무 말 대잔치 <strong>게시판</strong> 입니다. </p>
+            <img src="/jojaljojal.png" width="100" height="80" class="logo"/>
+            <p>안녕하세요,<span id="user-name"></span> !</p>
+            <p><strong>조잘조잘</strong> 아무 말이나 같이 해봐요 🐾 </p>
             <div id="board-button-div"></div>
             <div id="board-list" class="board-list"></div>
         </div>
@@ -26,7 +28,9 @@ export default function BoardListPage () {
     const uploadButtonDiv = document.getElementById('board-button-div');
     uploadButtonDiv.appendChild(uploadButton);
 
-    fetch("../../src/data/boards.json")
+    fetch(`${CONFIG.API_URL}/posts`,{
+        method: "GET"
+    })
         .then(response => {
             if (!response.ok) {
                 throw new Error("게시판 데이터를 불러오는 데 실패했습니다.");
@@ -47,5 +51,8 @@ export default function BoardListPage () {
             console.error("데이터 로드 오류:", error);
             document.getElementById("board-list").innerHTML = `<p>게시판 데이터를 불러오는 데 실패했습니다.</p>`;
         });
+
+    const nickname = document.getElementById("user-name")
+    nickname.innerHTML=`${JSON.parse(sessionStorage.getItem("user")).nickname}`
 
 }

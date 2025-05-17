@@ -1,62 +1,172 @@
 import Button from "../../components/Button.js";
+import CONFIG from "../../config.js";
+import { navigateTo } from "../../router.js";
 import UserItem from "../BoardDetailPage/components/UserItem.js";
-export default function BoardDetailPage (params) {
-    
+export default async function BoardDetailPage (post_id) {
     const app = document.getElementById("app");
-    console.log(params);
+    console.log(post_id);
+
+     //  게시글 데이터 fetch
+     let postData;
+     try {
+         const res = await fetch(`${CONFIG.API_URL}/posts/${post_id}`,
+             {method: "GET"}
+         );
+         if (!res.ok) throw new Error("서버 응답 실패");
+         postData = await res.json(); 
+         console.log(postData);
+         
+     
+     } catch (err) {
+         app.innerHTML = `<p>게시글을 불러오지 못했습니다.</p>`;
+         console.error(err);
+         return;
+     }
 
     app.innerHTML = `
          <div class="boardItem-container">
-            <h2 class="boardItem-title">제목 1</h2>
+            <h2 class="boardItem-title">${postData.title}</h2>
             <div id="userItem"></div>
             <hr class="boardItem-hr"/>
-            <div class="boardItem-img"></div>
-            <p class="post-content">이것은 더미 게시글 내용입니다.</p>
+            <div id = "boardItem-img" class="boardItem-img"></div>
+            <p class="post-content">${postData.post_content}</p>
             <div class="post-stats">
-                <div class="stat-item"><strong>123</strong> 좋아요수</div>
-                <div class="stat-item"><strong>123</strong> 조회수</div>
-                <div class="stat-item"><strong>123</strong> 댓글</div>
+                <div class="stat-item" id="stat-item-heart">좋아요<strong>${postData.like_count}</strong></div>
+                <div class="stat-item">댓글<strong id="comment-count"></strong> </div>
             </div>
             <hr class="boardItem-hr"/>
             <div class="comment-section">
-                <textarea class="comment-input" placeholder="댓글을 남겨주세요!"></textarea>
+                <textarea id="comment-input" class="comment-input" placeholder="댓글을 남겨주세요!"></textarea>
                 <div class="comment-button-div"></div>
             </div>
             <div class="comment-list" id="comment-list"></div>
         </div>
     `;
 
-    const userItem = document.getElementById("userItem")
-    userItem.appendChild(UserItem({nickname: "미", created_at : "2025-01-01 13:00", user_id: 1, profile_image: null}))
+     /** 게시글 이미지 */
+     const BoardItemImgDiv = document.getElementById("boardItem-img")
+ 
+    const postImageUrl = postData.post_image_url|| null;
+
+    BoardItemImgDiv.style.backgroundImage = `url('${postImageUrl}')`;
+ 
 
 
-    /** 댓글 */
-    const comments = [
-        { user_id: 1, nickname: "더미 작성자 1", created_at: "2025-02-20 12:30", content: "첫 번째 댓글입니다." },
-        { user_id: 2, nickname: "더미 작성자 2", created_at: "2025-02-19 15:45", content: "두 번째 댓글입니다." },
-        { user_id: 3, nickname: "더미 작성자 3", created_at: "2025-02-18 10:20", content: "세 번째 댓글입니다." }
-    ];
+    /** 댓글 fetch */
+    async function renderComments(post_id) {
+        const commentList = document.getElementById("comment-list");
+        commentList.innerHTML = ""; // 기존 댓글 초기화
+    
+        try {
+            const res = await fetch(`${CONFIG.API_URL}/posts/${post_id}/comment`, { method: "GET" });
+            if (!res.ok) throw new Error("서버 응답 실패");
+            const commentData = await res.json();
+    
+            commentData.forEach(comment => {
+                commentList.appendChild(UserItem(comment,post_id));
+    
+                const commentContent = document.createElement("p");
+                commentContent.classList.add("comment-content");
+                commentContent.innerHTML = `<p>${comment.comment_content}</p>`;
+                commentList.appendChild(commentContent);
 
-    const commentList = document.getElementById("comment-list");
-    comments.forEach(comment => {
-        commentList.appendChild(UserItem(comment));
-        
-        // 공통 컴포넌트(유저 항목)에 댓글 내용 추가 
-        const commentContent = document.createElement("p")
-        commentContent.classList.add("comment-content")
-        commentContent.innerHTML = `<p>${comment.content}</p>`
-        commentList.appendChild(commentContent)
-    });
+            });
 
+            const commentCount = document.getElementById("comment-count");
+            commentCount.innerText = `${commentData.length}`
+    
+        } catch (err) {
+            commentList.innerHTML = `<p>댓글을 불러오지 못했습니다.</p>`;
+            console.error(err);
+        }
+    }
+
+    /** 댓글 초기 렌더링 */
+    await renderComments(post_id);
+
+    // 작성자 정보 출력
+    const userItem = document.getElementById("userItem");
+    userItem.appendChild(UserItem({
+        nickname: postData.nickname,
+        created_at: postData.created_at,
+        profile_image_url: postData.profile_image_url,
+        post_id: post_id,
+    }));
+
+    /** 댓글 작성  */
 
     const commentButton = Button({
         text: '댓글 등록',
-        onClick: () => {console.log('댓글 작성');}
-        ,
+        onClick: () => {
+            uploadComment();
+        },
         className: "comment-button"
-    })
+    });
 
     const commentButtonDiv = document.querySelector(".comment-button-div");
     commentButtonDiv.appendChild(commentButton);
 
+    async function uploadComment () {
+        try {
+            const commentInput = document.getElementById("comment-input");
+            const res = await fetch(`${CONFIG.API_URL}/posts/${post_id}/comment`,
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        post_id: post_id,
+                        user_id: JSON.parse(sessionStorage.getItem("user")).user_id,
+                        comment_content: commentInput.value.trim()
+                    })
+                }
+            )
+            
+            if (!res.ok) throw new Error("서버 응답 실패");
+            else {
+                // 댓글 작성 후 다시 렌더링
+                commentInput.value = "";
+                renderComments(post_id);
+            }
+            
+        } catch(err) {
+            console.log(err);
+            alert("댓글 작성 실패");
+        }
+    }
+
+  
+
+    /** 좋아요 등록  */
+    const StatItemHeart = document.getElementById("stat-item-heart");
+    const HeartCountEl = StatItemHeart.querySelector("strong");
+    let likeCount = parseInt(HeartCountEl.textContent);
+
+    StatItemHeart.addEventListener('click',
+        () => postHeart()
+      
+    )
+
+    async function postHeart() {
+        try {
+            const res = await fetch(`${CONFIG.API_URL}/posts/${post_id}/heart`, 
+            {
+                method: "POST",
+            })
+
+            if(!res.ok) throw new Error("좋아요 등록 실패");
+
+            // UI 반영
+            likeCount = likeCount + 1 ;
+            HeartCountEl.textContent = likeCount;
+
+        }
+        catch (err) {
+            console.log(err);
+            alert("좋아요 등록 실패");
+        }
+    }
+
+
+
 }
+
